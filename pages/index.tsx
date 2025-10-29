@@ -1,5 +1,5 @@
-import FieldNodesTerminal from '../src/components/FieldNodesTerminal';
+import TerminalLanding from '../src/components/TerminalLanding';
 
 export default function Home() {
-  return <FieldNodesTerminal />;
+  return <TerminalLanding />;
 }
