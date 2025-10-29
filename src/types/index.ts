@@ -1,6 +1,17 @@
 // Field Nodes Type Definitions
 // These interfaces define the core data structures for the system
 
+import { Database } from '../lib/supabase';
+
+// Database types from Supabase
+export type User = Database['public']['Tables']['users']['Row'];
+export type Field = Database['public']['Tables']['fields']['Row'];
+export type Node = Database['public']['Tables']['nodes']['Row'];
+export type NodeConnection = Database['public']['Tables']['node_connections']['Row'];
+export type FieldMembership = Database['public']['Tables']['field_memberships']['Row'];
+export type Activity = Database['public']['Tables']['activity_log']['Row'];
+
+// Legacy types for backwards compatibility
 export type UserType = 'guest' | 'account';
 export type NodeState = 'evolving' | 'stable' | 'archived';
 export type UserRole = 'observer' | 'builder' | 'reflector' | 'steward';

@@ -1,53 +1,56 @@
 // Global Terminal Component Styles
 // Reusable styles for all terminal-like components
+// Now using token-based design system
 
-import { palette, typography, spacing, borderRadius, shadows, transitions } from '../theme';
+import { tokens } from '../theme/tokens';
 
 export const terminalStyles = {
   // Main terminal frame
   frameWrap: {
-    background: '#0b0b0d',
-    border: '1px solid #222',
-    borderRadius: borderRadius.lg,
-    padding: `${spacing['3xl']} ${spacing['4xl']}`,
-    width: 'fit-content',
-    margin: `${spacing['5xl']} auto`,
-    boxShadow: shadows.lg,
+    background: tokens.color.bg.canvas,
+    border: `1px solid ${tokens.color.divider}`,
+    borderRadius: tokens.radius.lg,
+    padding: `${tokens.spacing['3xl']} ${tokens.spacing['2xl']}`,
+    width: '100%',
+    maxWidth: '960px',
+    margin: `${tokens.spacing['3xl']} auto`,
+    boxShadow: tokens.shadow.soft,
   },
   
   frame: {
-    maxWidth: "64ch",
-    fontFamily: typography.mono,
-    fontWeight: typography.normal,
+    width: '100%',
+    maxWidth: '80ch',
+    fontFamily: tokens.typography.family.mono,
+    fontWeight: tokens.typography.weight.normal,
   },
   
   // Terminal output
   output: {
     whiteSpace: "pre-wrap" as const,
-    lineHeight: typography.relaxed,
+    lineHeight: tokens.typography.lineHeight.relaxed,
     letterSpacing: "0.15px",
-    fontSize: typography.lg,
-    marginBottom: spacing.sm,
+    fontSize: tokens.typography.size.lg,
+    marginBottom: tokens.spacing.sm,
   },
   
   // Text styles
   hero: {
-    color: palette.ink,
+    color: tokens.color.text.primary,
     display: "block",
-    margin: `${spacing.xs} 0`,
-    fontSize: typography.lg,
+    margin: `${tokens.spacing.xs} 0`,
+    fontSize: tokens.typography.size.lg,
   },
   
   header: {
-    color: palette.lilac,
-    fontSize: typography.lg,
-    marginBottom: spacing.md,
+    color: tokens.color.field.lilac,
+    fontSize: tokens.typography.size.lg,
+    marginBottom: tokens.spacing.md,
   },
   
   cmdHint: {
-    color: palette.magenta,
-    fontSize: typography.lg,
-    marginTop: spacing.sm,
+    color: tokens.color.field.magenta,
+    fontSize: tokens.typography.size.lg,
+    marginTop: tokens.spacing.sm,
     display: "block",
   },
   
@@ -55,8 +58,8 @@ export const terminalStyles = {
   promptRow: {
     display: "flex",
     alignItems: "center",
-    gap: spacing.sm,
-    marginTop: spacing.md,
+    gap: tokens.spacing.sm,
+    marginTop: tokens.spacing.md,
   },
   
   promptInputWrap: {
@@ -66,11 +69,11 @@ export const terminalStyles = {
   },
   
   promptCaret: {
-    color: palette.magenta,
-    borderRight: `2px solid ${palette.magenta}`,
+    color: tokens.color.field.magenta,
+    borderRight: `2px solid ${tokens.color.field.magenta}`,
     display: "inline-block",
     height: "1.4em",
-    marginLeft: spacing.xs,
+    marginLeft: tokens.spacing.xs,
     marginRight: "2px",
     width: 0,
     pointerEvents: "none" as const,
@@ -82,7 +85,7 @@ export const terminalStyles = {
     left: 0,
     top: 0,
     font: "inherit",
-    color: `${palette.magenta}66`,
+    color: `${tokens.color.field.magenta}66`,
     pointerEvents: "none" as const,
     whiteSpace: "pre" as const,
   },
@@ -93,45 +96,45 @@ export const terminalStyles = {
     background: "transparent",
     border: "none",
     outline: "none",
-    color: palette.ink,
+    color: tokens.color.text.primary,
     font: "inherit",
-    fontSize: typography.lg,
-    caretColor: palette.magenta,
-    textShadow: `0 0 6px ${palette.lilac}44`,
+    fontSize: tokens.typography.size.lg,
+    caretColor: tokens.color.field.magenta,
+    textShadow: `0 0 6px ${tokens.color.field.lilac}44`,
   } as React.CSSProperties,
   
   // Section buttons
   sectionList: {
     display: "flex",
     flexWrap: "wrap" as const,
-    gap: spacing.sm,
-    margin: `${spacing.lg} 0`,
+    gap: tokens.spacing.sm,
+    margin: `${tokens.spacing.lg} 0`,
   },
   
   sectionButton: {
     background: 'transparent',
-    border: `1px solid ${palette.lilac}`,
-    borderRadius: borderRadius.md,
-    color: palette.lilac,
-    padding: `${spacing.sm} ${spacing.md}`,
-    fontFamily: typography.mono,
-    fontSize: typography.sm,
+    border: `1px solid ${tokens.color.field.lilac}`,
+    borderRadius: tokens.radius.base,
+    color: tokens.color.field.lilac,
+    padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+    fontFamily: tokens.typography.family.mono,
+    fontSize: tokens.typography.size.sm,
     cursor: 'pointer',
-    transition: transitions.normal,
+    transition: `all ${tokens.animation.duration.base} ${tokens.animation.easing.base}`,
     textTransform: 'uppercase' as const,
     letterSpacing: '0.5px',
   },
   
   sectionButtonActive: {
-    background: palette.magenta,
-    border: `1px solid ${palette.magenta}`,
-    borderRadius: borderRadius.md,
-    color: palette.bg,
-    padding: `${spacing.sm} ${spacing.md}`,
-    fontFamily: typography.mono,
-    fontSize: typography.sm,
+    background: tokens.color.field.magenta,
+    border: `1px solid ${tokens.color.field.magenta}`,
+    borderRadius: tokens.radius.base,
+    color: tokens.color.bg.canvas,
+    padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+    fontFamily: tokens.typography.family.mono,
+    fontSize: tokens.typography.size.sm,
     cursor: 'pointer',
-    transition: transitions.normal,
+    transition: `all ${tokens.animation.duration.base} ${tokens.animation.easing.base}`,
     textTransform: 'uppercase' as const,
     letterSpacing: '0.5px',
   },
@@ -148,9 +151,9 @@ export const globalStyles = `
   body, html {
     margin: 0;
     padding: 0;
-    background: ${palette.bg};
+    background: ${tokens.color.bg.canvas};
     overflow-x: hidden;
-    font-family: ${typography.mono};
+    font-family: ${tokens.typography.family.mono};
   }
   
   * {
@@ -159,9 +162,9 @@ export const globalStyles = `
   
   .terminal-container {
     min-height: 100dvh;
-    background: ${palette.bg};
-    color: ${palette.ink};
-    font-family: ${typography.mono};
-    padding: ${spacing['3xl']} ${spacing.lg};
+    background: ${tokens.color.bg.canvas};
+    color: ${tokens.color.text.primary};
+    font-family: ${tokens.typography.family.mono};
+    padding: ${tokens.spacing['3xl']} ${tokens.spacing.lg};
   }
 `;

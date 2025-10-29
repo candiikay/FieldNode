@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import RawNodeEditor from './RawNodeEditor';
 import { NodeStorage } from '../services/storage';
 import { Node } from '../types';
+import { useAuth } from '@/providers/AuthProvider';
+import UserMenu from './auth/UserMenu';
 
 type Stage = 'origin'|'orient'|'covenant'|'identify'|'login'|'lineage'|'reflect'|'link'|'tend'|'offer'|'create-node'|'browse-nodes'|'node-detail'|'account-confirmed';
 
@@ -143,89 +145,10 @@ choose one that feels right for now:
 role: [_________]
 ──────────────────────────────────────────────`;
 
-const styles = {
-  frameWrap: {
-    background: '#0b0b0d',
-    border: '1px solid #222',
-    borderRadius: '10px',
-    padding: '32px 40px',
-    width: 'fit-content',
-    margin: '80px auto',
-    boxShadow: '0 0 60px rgba(208, 128, 208, 0.08)',
-  },
-  frame: {
-    maxWidth: "64ch",
-    fontFamily: "'IBM Plex Mono', ui-monospace, monospace",
-    fontWeight: 400,
-  },
-  output: {
-    whiteSpace: "pre-wrap",    // wrap long lines while preserving manual breaks
-    lineHeight: 1.9,
-    letterSpacing: "0.15px",
-    fontSize: "18px",
-    marginBottom: "10px",
-  },
-  hero: {
-    color: palette.ink,
-    display: "block",
-    margin: "4px 0",
-    fontSize: "18px",
-  },
-  header: {
-    color: palette.lilac,
-    fontSize: "18px",
-    marginBottom: "12px",
-  },
-  cmdHint: {
-    color: palette.magenta,
-    fontSize: "18px",
-    marginTop: "10px",
-    display: "block",
-  },
-  promptRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "6px",
-    marginTop: "12px",
-  },
-  promptInputWrap: {
-    position: "relative" as const,
-    display: "inline-flex",
-    alignItems: "center",
-  },
-  promptCaret: {
-    color: palette.magenta,
-    borderRight: `2px solid ${palette.magenta}`,
-    display: "inline-block",
-    height: "1.4em",
-    marginLeft: "4px",
-    marginRight: "2px",
-    width: 0,
-    pointerEvents: "none" as const,
-    animation: "blink 1.4s ease-in-out infinite",
-  },
-  promptSuggestion: {
-    position: "absolute" as const,
-    left: 0,
-    top: 0,
-    font: "inherit",
-    color: `${palette.magenta}66`,
-    pointerEvents: "none" as const,
-    whiteSpace: "pre" as const,
-  },
-  promptInput: {
-    position: "relative",
-    width: "38ch",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    color: palette.ink,
-    font: "inherit",
-    fontSize: "18px",
-    caretColor: palette.magenta,
-    textShadow: `0 0 6px ${palette.lilac}44`,
-  } as React.CSSProperties,
-};
+// Import proper terminal styles
+import { terminalStyles, globalStyles } from '../styles/terminal';
+
+const styles = terminalStyles;
 
 
 export default function FieldNodesTerminal(){
@@ -248,7 +171,8 @@ export default function FieldNodesTerminal(){
   useEffect(()=>{
     if(hasBooted.current) return;
     hasBooted.current = true;
-    boot();
+    console.log('Starting boot sequence...');
+    boot().catch(console.error);
   },[]);
   
   // Handle URL command parameters
@@ -299,6 +223,10 @@ export default function FieldNodesTerminal(){
         if (i < text.length) {
           // Replace the last line instead of adding new ones
           setLines(prev => {
+            // Ensure there is always a line available (push may not have flushed yet)
+            if (prev.length === 0) {
+              return [text.slice(0, i + 1)];
+            }
             const newLines = [...prev];
             newLines[newLines.length - 1] = text.slice(0, i + 1);
             return newLines;
@@ -1062,6 +990,9 @@ click a node number to view details`;
   }
 
 
+  // Temporarily disable auth to show terminal directly
+  const { user, userProfile } = { user: null, userProfile: null };
+
   return (
     <div
       style={{
@@ -1070,8 +1001,20 @@ click a node number to view details`;
         color: palette.ink,
         fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
         padding: "32px 16px",
+        position: "relative",
       }}
     >
+      {/* User Menu in top right */}
+      {user && userProfile && (
+        <div style={{
+          position: "absolute",
+          top: "32px",
+          right: "16px",
+          zIndex: 1000,
+        }}>
+          <UserMenu />
+        </div>
+      )}
       {showNodeForm ? (
         <RawNodeEditor
           user={{
@@ -1292,15 +1235,7 @@ click a node number to view details`;
       </div>
       )}
       
-      <style>{`
-        @keyframes blink { 0%{opacity:.2} 50%{opacity:1} 100%{opacity:.2} }
-      `}</style>
-      <style jsx global>{`
-        html, body {
-          margin: 0;
-          background: ${palette.bg};
-        }
-      `}</style>
+      <style jsx global>{globalStyles}</style>
     </div>
   );
 }

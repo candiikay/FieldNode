@@ -12,77 +12,77 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const themes = {
-         monochrome: {
-           name: 'Attuned',
-           description: 'Sensitive, responsive interface that listens and adapts',
-           colors: {
-             bg: {
-               canvas: '#FFFFFF',
-               elevated: '#F8F9FA',
-               hover: '#F1F3F4',
-               terminal: 'rgba(248, 249, 250, 0.8)',
-             },
-             text: {
-               primary: '#1A1A1A',
-               secondary: '#6B7280',
-               accent: '#374151',
-               muted: '#9CA3AF',
-             },
-             field: {
-               lilac: '#059669', // Green neon for contrast
-               magenta: '#374151',
-               coral: '#4B5563',
-               orchid: '#6B7280',
-             },
-             semantic: {
-               success: '#059669',
-               warning: '#D97706',
-               error: '#DC2626',
-               info: '#2563EB',
-             },
-             divider: '#E5E7EB',
-           },
+  monochrome: {
+    name: 'Attuned',
+    description: 'Clean interface with warm brown accents',
+    colors: {
+      bg: {
+        canvas: '#fafafa',
+        elevated: '#ffffff',
+        hover: '#f0f0f0',
+        terminal: '#ffffff',
+      },
+      text: {
+        primary: '#2d2d2d',
+        secondary: '#999999',
+        accent: '#9f8f7f',
+        muted: '#b3b3b3',
+      },
+      field: {
+        lilac: '#9f8f7f',
+        magenta: '#9f8f7f',
+        coral: '#9f8f7f',
+        orchid: '#9f8f7f',
+      },
+      semantic: {
+        success: '#4caf50',
+        warning: '#ff9800',
+        error: '#dc2626',
+        info: '#2196f3',
+      },
+      divider: '#e5e5e5',
+    },
     typography: {
       family: {
         sans: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-        mono: "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        mono: "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
       },
     },
   },
   research: {
     name: 'Amplified',
-    description: 'Bold, vibrant interface that amplifies voices and connections',
+    description: 'Dark interface with warm brown accents',
     colors: {
       bg: {
-        canvas: '#0D0A12',
-        elevated: '#171226',
-        hover: '#221A35',
-        terminal: 'rgba(13, 10, 18, 0.6)',
+        canvas: '#1a1a1a',
+        elevated: '#0f0f0f',
+        hover: '#2a2a2a',
+        terminal: '#0f0f0f',
       },
       text: {
-        primary: '#EDE6FF',
-        secondary: '#B3A8C7',
-        accent: '#E18EE7',
-        muted: '#7A6F8E',
+        primary: '#cccccc',
+        secondary: '#808080',
+        accent: '#9f8f7f',
+        muted: '#666666',
       },
       field: {
-        lilac: '#B79CFF',
-        magenta: '#E18EE7',
-        coral: '#F86F5C',
-        orchid: '#9A5FAE',
+        lilac: '#9f8f7f',
+        magenta: '#9f8f7f',
+        coral: '#9f8f7f',
+        orchid: '#9f8f7f',
       },
       semantic: {
-        success: '#4CAF50',
-        warning: '#FF9800',
-        error: '#F44336',
-        info: '#2196F3',
+        success: '#4caf50',
+        warning: '#ff9800',
+        error: '#f44336',
+        info: '#2196f3',
       },
-      divider: '#2A2040',
+      divider: '#333333',
     },
     typography: {
       family: {
-        sans: "'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif",
-        mono: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        sans: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+        mono: "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
       },
     },
   },
