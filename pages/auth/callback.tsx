@@ -17,30 +17,8 @@ export default function AuthCallback() {
         }
 
         if (data.session) {
-          // Always redirect to profile first for Google OAuth users
-          // The profile page will handle checking if username exists
-          const userId = data.session.user.id;
-          try {
-            const { data: profile } = await supabase
-              .from('users')
-              .select('username')
-              .eq('id', userId)
-              .single();
-
-            // If no username exists, go to profile to set one
-            if (!profile || !profile.username) {
-              console.log('No username found, redirecting to profile');
-              router.push('/profile');
-            } else {
-              // Has username, go to their personal home
-              console.log('Username found:', profile.username, 'redirecting to home');
-              router.push('/home');
-            }
-          } catch (profileError: any) {
-            // If profile doesn't exist yet (error code PGRST116), redirect to profile
-            console.log('Profile not found, redirecting to profile:', profileError);
-            router.push('/profile');
-          }
+          // Just go to home - let the home page handle routing
+          router.push('/home');
         } else {
           // No session, redirect to landing
           router.push('/landing');

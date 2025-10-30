@@ -36,16 +36,6 @@ function ProfilePage() {
     }
   }, [user, authLoading, router]);
 
-  // If user has a username already, redirect to home after a moment
-  useEffect(() => {
-    if (userProfile?.username && userProfile?.username !== user?.email?.split('@')[0]) {
-      const timer = setTimeout(() => {
-        router.push('/home');
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [userProfile, user, router]);
-
   const contentLines = [
     '',
     'PROFILE SETTINGS',
@@ -185,6 +175,11 @@ function ProfilePage() {
   };
 
   const handleUpdate = async () => {
+    if (!user) {
+      setError('You must be signed in to update your profile');
+      return;
+    }
+    
     console.log('Starting update...', { username, email, hasPassword: !!password });
     setLoading(true);
     setError(null);
@@ -269,10 +264,7 @@ function ProfilePage() {
       setConfirmPassword('');
       setAvatarFile(null);
       
-      // Reload the page to get updated profile
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      // Don't auto-redirect, let user manually click to go to home
     } catch (err: any) {
       console.error('Update failed:', err);
       setError(err.message || 'Failed to update profile');
